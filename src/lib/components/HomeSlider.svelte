@@ -69,6 +69,7 @@
 
 <style>
   .slider { position: relative; width: 100%; overflow: hidden; border-radius: .5rem; }
+
   .slide {
     position: absolute; inset: 0;
     width: 100%; height: auto; object-fit: cover;
@@ -80,21 +81,27 @@
     position: absolute; top: 50%; transform: translateY(-50%);
     width: 40px; height: 40px; font-size: 24px; line-height: 38px; text-align: center;
     border-radius: 999px; cursor: pointer; user-select: none;
-    border: 1px solid var(--border, #e5e7eb);
-    background: color-mix(in srgb, var(--card, #fff) 70%, transparent);
-    color: var(--fg, #0f172a);
+
+    /* ТОЛЬКО переменные */
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    border: 1px solid var(--btn-border);
   }
+  .nav:hover { background: var(--surface-2); }
   .nav.prev { left: 8px; }
   .nav.next { right: 8px; }
 
   .dots { position: absolute; bottom: 8px; left: 0; right: 0; display: flex; gap: 6px; justify-content: center; }
   .dot {
     width: 10px; height: 10px; border-radius: 50%;
-    border: 1px solid var(--border, #e5e7eb);
-    background: color-mix(in srgb, var(--card, #fff) 40%, transparent);
+    background: var(--dot-bg);
+    border: 1px solid var(--dot-active-br);
     cursor: pointer;
   }
-  .dot.active { background: var(--link, #2563eb); border-color: var(--link, #2563eb); }
+  .dot.active {
+    background: var(--dot-active-bg);
+    border-color: var(--dot-active-br);
+  }
 
   @media (max-width: 768px) {.slide { max-height: 300px; }}
 </style>
