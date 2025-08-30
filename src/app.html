@@ -1,6 +1,36 @@
 <!doctype html>
 <html lang="en" class="h-100">
 	<head>
+
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <script>
+      // выставляем тему ДО загрузки приложения, чтобы не было вспышки
+      (function () {
+        try {
+          const ls = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const theme = ls ? ls : (prefersDark ? 'dark' : 'light');
+          if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (_) {}
+      })();
+    </script>
+    %sveltekit.head%
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">%sveltekit.body%</div>
+  </body>
+</html>
+
+
+
+
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">

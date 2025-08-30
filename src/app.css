@@ -1,3 +1,30 @@
+:root {
+  --bg: #f7f7f8;
+  --fg: #0f172a; /* почти тёмный сланец */
+  --link: #2563eb;
+  --card: #ffffff;
+  --border: #e5e7eb;
+}
+
+html.dark {
+  --bg: #0b1220;
+  --fg: #e5e7eb;
+  --link: #93c5fd;
+  --card: #0f172a;
+  --border: #1f2937;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Open Sans', sans-serif;
+}
+
+a { color: var(--link); }
 
 @font-face {
   font-family: "HandelGotDBol";
@@ -10,15 +37,7 @@
 }
 
 
-body {  
-  font-family: 'HandelGotDBol', sans-serif;
-  background: #f0f0f0;
-  font-family: 'Open Sans', sans-serif;
-  margin: 0;
-  padding: 0;
-	margin: 0;
-	color: #fff;
-}
+
 
 
 #ssl-seal img {
