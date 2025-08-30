@@ -46,6 +46,9 @@
   --dot-bg:        var(--surface-2);
   --dot-active-bg: var(--accent);
   --dot-active-br: var(--accent);
+
+  /* высота фиксированного подвала (перезапишем из JS фактической) */
+  --footer-h: 72px;
 }
 
 html.dark {
@@ -106,6 +109,7 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: 'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  padding-bottom: var(--footer-h); /* место под фиксированный футер */
 }
 
 a { color: var(--link); }
@@ -210,7 +214,7 @@ a { color: var(--link); }
 /* разделитель в шапке */
 .site-header .vr { opacity: 1; border-color: var(--header-border); }
 
-/* ===== СЕРЕБРИСТЫЙ ПОДВАЛ ===== */
+/* ===== СЕРЕБРИСТЫЙ ПОДВАЛ (фикс) ===== */
 .site-footer {
   background: linear-gradient(180deg, var(--footer-top) 0%, var(--footer-mid) 55%, var(--footer-bottom) 100%);
   color: var(--footer-fg);
@@ -219,6 +223,11 @@ a { color: var(--link); }
     inset 0 -1px 0 var(--footer-highlight),
     0 -0.5px 0 var(--footer-shadow);
   padding: 1rem 0;
+
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  width: 100%;
+  z-index: 1030;
 }
 .site-footer a { color: var(--footer-fg); text-decoration: none; }
 .site-footer a:hover { opacity: .9; }

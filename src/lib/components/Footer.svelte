@@ -1,10 +1,28 @@
-<script>
+<script lang="ts">
   import { t } from '$lib/i18n/store.js';
   import { base } from '$app/paths';
+  import { onMount } from 'svelte';
+
   const currentYear = new Date().getFullYear();
+  let el: HTMLElement;
+
+  onMount(() => {
+    const setH = () => {
+      if (!el) return;
+      document.documentElement.style.setProperty('--footer-h', `${el.offsetHeight}px`);
+    };
+    setH();
+    const ro = new ResizeObserver(setH);
+    ro.observe(el);
+    window.addEventListener('resize', setH);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', setH);
+    };
+  });
 </script>
 
-<footer id="main-footer" class="site-footer mt-auto py-3" role="contentinfo">
+<footer id="main-footer" class="site-footer mt-auto py-3" bind:this={el}>
   <div class="container d-flex justify-content-between align-items-center gap-3 flex-wrap">
     <div id="copyright" class="small">
       <p class="mb-1">&copy; {currentYear} {$t('footer.rights')}</p>
