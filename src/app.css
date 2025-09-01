@@ -1,88 +1,268 @@
+/* ===== ТЕМАТИЧЕСКИЕ ПЕРЕМЕННЫЕ (меняем только здесь) ===== */
+:root {
+  /* базовая палитра (светлая) */
+  --bg:            #f7f7f8;
+  --fg:            #0f172a; /* почти тёмный сланец */
+  --muted:         #64748b;
+  --border:        #e5e7eb;
+  --surface:       #ffffff; /* базовая подложка карточек/меню */
+  --surface-2:     #f3f4f6; /* hover/подсветки */
+  --accent:        #4f8aff; /* брендовый оттенок (первая буква логотипа) */
+  --link:          #2563eb; /* ссылки */
 
+  /* ХЕДЕР (серебристый, светлая) */
+  --header-fg:         var(--fg);
+  --header-top:        #eef1f5;  /* темнее сверху */
+  --header-mid:        #e6e9ee;
+  --header-bottom:     #d9dde5;  /* светлее снизу */
+  --header-border:     #d0d5dd;
+  --header-highlight:  rgba(255,255,255,.7);  /* внутренний «глянец» сверху */
+  --header-shadow:     rgba(0,0,0,.08);       /* разделение снизу */
+  --header-hover:      rgba(0,0,0,.04);
+
+  /* ПОДВАЛ (серебристый, светлая) */
+  --footer-fg:         var(--fg);
+  --footer-top:        #d9dde5;
+  --footer-mid:        #e2e6ec;
+  --footer-bottom:     #eef1f5;
+  --footer-border:     #d0d5dd;
+  --footer-highlight:  rgba(255,255,255,.7);  /* глянец снизу */
+  --footer-shadow:     rgba(0,0,0,.08);       /* разделение сверху */
+
+  /* алиасы для компонентов */
+  --card-bg:       var(--surface);
+  --card-fg:       var(--fg);
+  --card-border:   var(--border);
+
+  --menu-bg:       var(--surface);
+  --menu-fg:       var(--fg);
+  --menu-border:   var(--border);
+
+  --btn-bg:        var(--surface);
+  --btn-fg:        var(--fg);
+  --btn-border:    var(--border);
+
+  /* точки слайдера */
+  --dot-bg:        var(--surface-2);
+  --dot-active-bg: var(--accent);
+  --dot-active-br: var(--accent);
+
+  /* высота фиксированного подвала (перезапишем из JS фактической) */
+  --footer-h: 72px;
+}
+
+html.dark {
+  /* базовая палитра (тёмная) */
+  --bg:            #0b1220;
+  --fg:            #e5e7eb;
+  --muted:         #94a3b8;
+  --border:        #1f2937;
+  --surface:       #0f172a;
+  --surface-2:     #111827;
+  --accent:        #93c5fd;
+  --link:          #93c5fd;
+
+  /* ХЕДЕР (тёмный «металл») */
+  --header-fg:         var(--fg);
+  --header-top:        #171e2a;
+  --header-mid:        #121922;
+  --header-bottom:     #0d141d;
+  --header-border:     #202938;
+  --header-highlight:  rgba(255,255,255,.08);
+  --header-shadow:     rgba(0,0,0,.4);
+  --header-hover:      rgba(255,255,255,.06);
+
+  /* ПОДВАЛ (тёмный «металл») */
+  --footer-fg:         var(--fg);
+  --footer-top:        #0d141d;
+  --footer-mid:        #121922;
+  --footer-bottom:     #171e2a;
+  --footer-border:     #202938;
+  --footer-highlight:  rgba(255,255,255,.08);
+  --footer-shadow:     rgba(0,0,0,.4);
+
+  /* алиасы */
+  --card-bg:       var(--surface);
+  --card-fg:       var(--fg);
+  --card-border:   var(--border);
+
+  --menu-bg:       var(--surface);
+  --menu-fg:       var(--fg);
+  --menu-border:   var(--border);
+
+  --btn-bg:        var(--surface);
+  --btn-fg:        var(--fg);
+  --btn-border:    var(--border);
+
+  /* точки слайдера */
+  --dot-bg:        var(--surface-2);
+  --dot-active-bg: var(--accent);
+  --dot-active-br: var(--accent);
+}
+
+/* ===== НЕЙТРАЛЬНЫЕ БАЗОВЫЕ СТИЛИ ===== */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  padding-bottom: var(--footer-h); /* место под фиксированный футер */
+}
+
+a { color: var(--link); }
+
+/* брендовый шрифт */
 @font-face {
   font-family: "HandelGotDBol";
-  src: url("/fonts/HandelGotDBol/HandelGotDBol.woff2") format("woff2"),
-       url("/fonts/HandelGotDBol/HandelGotDBol.woff") format("woff"),
-       url("/fonts/HandelGotDBol/HandelGotDBol.ttf") format("truetype");
+  src:
+    url("/fonts/HandelGotDBol/HandelGotDBol.woff2") format("woff2"),
+    url("/fonts/HandelGotDBol/HandelGotDBol.woff") format("woff"),
+    url("/fonts/HandelGotDBol/HandelGotDBol.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
-
-body {  
-  font-family: 'HandelGotDBol', sans-serif;
-  background: #f0f0f0;
-  font-family: 'Open Sans', sans-serif;
-  margin: 0;
-  padding: 0;
-	margin: 0;
-	color: #fff;
+/* ===== (опциональный) мост для Bootstrap-переменных на уровне страницы ===== */
+:root, html.dark {
+  --bs-body-bg:                 var(--bg);
+  --bs-body-color:              var(--fg);
+  --bs-border-color:            var(--border);
+  --bs-card-bg:                 var(--card-bg);
+  --bs-card-color:              var(--card-fg);
+  --bs-dropdown-bg:             var(--menu-bg);
+  --bs-dropdown-color:          var(--menu-fg);
+  --bs-dropdown-link-hover-bg:  var(--surface-2);
+  --bs-link-color:              var(--link);
+  --bs-link-hover-color:        var(--link);
 }
 
-
-#ssl-seal img {
-    cursor: pointer;
-    width: 211px;
-    height: 64px;
+/* карточки/меню и пр. берут наши цвета (без .navbar, чтобы не перебивать шапку) */
+.dropdown-menu,
+.card,
+.modal-content,
+.offcanvas,
+.accordion-item,
+.list-group,
+.toast {
+  background: var(--card-bg);
+  color: var(--card-fg);
 }
 
-.navbar-brand {
-	font-family: 'HandelGotDBol';
+.dropdown-menu { border-color: var(--menu-border); }
+.navbar { border-bottom: 1px solid var(--card-border); }
+
+/* формы */
+.form-control,
+.form-select {
+  background: var(--card-bg);
+  color: var(--card-fg);
+  border-color: var(--border);
 }
 
-.navbar-brand:first-letter {
-	color: #4f8aff;
+/* кнопки по умолчанию в наших цветах */
+.btn {
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border-color: var(--btn-border);
 }
 
-li:hover{
-	cursor:pointer;
+/* ===== СЕРЕБРИСТЫЙ ХЕДЕР (выпуклый), класс .site-header на <nav> ===== */
+.site-header.navbar {
+  /* градиент + тени */
+  background: linear-gradient(180deg, var(--header-top) 0%, var(--header-mid) 55%, var(--header-bottom) 100%) !important;
+  color: var(--header-fg);
+  border-bottom: 1px solid var(--header-border);
+  box-shadow:
+    inset 0 1px 0 var(--header-highlight),
+    0 .5px 0 var(--header-shadow);
+
+  /* подсказка bootstrap внутри шапки */
+  --bs-navbar-color: var(--header-fg);
+  --bs-navbar-brand-color: var(--header-fg);
+  --bs-navbar-hover-color: var(--header-fg);
+  --bs-navbar-toggler-border-color: var(--header-border);
 }
 
-ul {
-    width:100%;
-    margin-left: 0;
-    margin-bottom: 0
-} 
-
-li { 
-     list-style-type: none;
-    display: inline-block;
-    margin-right: 20px;
+/* принудительно перекрашиваем ссылки и кнопку-бургер в шапке */
+.site-header .navbar-brand,
+.site-header .nav-link,
+.site-header .dropdown-toggle,
+.site-header .navbar-toggler {
+  color: var(--header-fg) !important;
 }
 
-section {
-  max-height: 100%;
-  overflow-y: auto;
+.site-header .nav-link:hover,
+.site-header .nav-link:focus,
+.site-header .nav-link.show {
+  color: var(--header-fg) !important;
+  background: var(--header-hover);
+  border-radius: .375rem;
 }
 
-section.d-flex {
-  min-height: 100vh;
+.site-header .navbar-toggler { border: 1px solid var(--header-border); }
+.site-header .navbar-toggler .bi {
+  font-size: 1.25rem;
+  color: var(--header-fg) !important;
+  line-height: 1;
+  display: inline-block;
 }
 
+/* разделитель в шапке */
+.site-header .vr { opacity: 1; border-color: var(--header-border); }
 
-  .dropdown-menu {
-    position: absolute;
-    z-index: 1000;
-    background: white;
-    border: 1px solid rgba(0,0,0,.15);
-    border-radius: 0.25rem;
-    padding: 0.5rem 0;
-    list-style: none;
-  }
-  
-  .dropdown-item {
-    display: flex;
-    align-items: center;
-    padding: 0.25rem 1.5rem;
-    color: #212529;
-    text-decoration: none;
-  }
-  
-  .dropdown-item:hover {
-    background-color: #f8f9fa;
-  }
-  
-  .show {
-    display: block;
-  }
+/* ===== СЕРЕБРИСТЫЙ ПОДВАЛ (фикс) ===== */
+.site-footer {
+  background: linear-gradient(180deg, var(--footer-top) 0%, var(--footer-mid) 55%, var(--footer-bottom) 100%);
+  color: var(--footer-fg);
+  border-top: 1px solid var(--footer-border);
+  box-shadow:
+    inset 0 -1px 0 var(--footer-highlight),
+    0 -0.5px 0 var(--footer-shadow);
+  padding: 1rem 0;
+
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  width: 100%;
+  z-index: 1030;
+}
+.site-footer a { color: var(--footer-fg); text-decoration: none; }
+.site-footer a:hover { opacity: .9; }
+.site-footer .nav, .site-footer .nav-link { color: var(--footer-fg); }
+.site-footer .nav-link:hover { background: var(--surface-2); border-radius: .375rem; }
+
+/* ===== ТВОИ СТАРЫЕ СЕЛЕКТОРЫ — БЕЗ ЖЁСТКИХ ЦВЕТОВ ===== */
+#ssl-seal img { cursor: pointer; width: 211px; height: 64px; }
+
+.navbar-brand { font-family: 'HandelGotDBol'; }
+.navbar-brand:first-letter { color: var(--accent); }
+
+li:hover { cursor: pointer; }
+ul { width: 100%; margin-left: 0; margin-bottom: 0; }
+li { list-style-type: none; display: inline-block; margin-right: 20px; }
+
+section { max-height: 100%; overflow-y: auto; }
+section.d-flex { min-height: 100vh; }
+
+/* dropdown — без хардкода цветов */
+.dropdown-menu {
+  position: absolute;
+  z-index: 1200;
+  border: 1px solid var(--menu-border);
+  border-radius: 0.25rem;
+  padding: 0.5rem 0;
+  list-style: none;
+}
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 1.5rem;
+  color: inherit; /* берём из меню */
+  text-decoration: none;
+}
+.dropdown-item:hover { background-color: var(--surface-2); }
+
+.show { display: block; }
